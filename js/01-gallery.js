@@ -70,7 +70,7 @@ function createMarkup(arr){
             <img 
             class='gallery__image'
             src = '${preview}'
-            data-sourse = '${original}'
+            data-source = '${original}'
             alt = '${description}'/>
         </a>
     </li>
@@ -80,13 +80,6 @@ function createMarkup(arr){
 
 list.insertAdjacentHTML('afterbegin', createMarkup(galleryItems))
 
-// list.onclick = (evt) => {
-//     evt.preventDefault()
-//     if (!evt.target.classList.contains('gallery__image')){
-//         return
-//     }
-// }
-
 list.addEventListener('click', handlerClickGallery)
 
 function handlerClickGallery(evt){
@@ -95,42 +88,29 @@ function handlerClickGallery(evt){
         console.log('gallery__image', evt.target)
     }
 
-        const imageSrc = evt.target.dataset.source;
-        const instance = basicLightbox.create(
+    const imageSrc = evt.target.dataset.source;
+
+    const instance = basicLightbox.create(
             `<img src="${imageSrc}" alt = '${evt.target.description}'
             width="1300" height="900">
              `, {
-             onShow: handlerEscapeModal,
-             onClose: handlerEscapeModal,
+             onShow: () => {
+                window.addEventListener('keydown', handlerEscapeModal);},
+                
+             onClose: () => {
+                window.removeEventListener('keydown', handlerEscapeModal);
+             } 
         })
         instance.show();
+
+        function handlerEscapeModal(evt) {
+            if (evt.code === 'Escape') {
+                instance.close();
+            }
+        }
 }
 
-// function onGalleryItemClick(event) {
-//     const imageSrc = event.target.dataset.source;
-//     const instance = basicLightbox.create(`
-//       <img src="${imageSrc}" width="800" height="600">
-//     `);
-//     instance.show();
-//   }
 
-// const instance = basicLightbox.create(`
-//     <img src="assets/images/image.png" width="800" height="600">
-// `)
-
-function handlerEscapeModal(evt) {
-    if (evt.code === 'Escape') {
-        instance.close();
-    }
-}
-
-window.addEventListener('keydown', handlerEscapeModal);
-window.removeEventListener('keydown', handlerEscapeModal);
-
-// function findImage(sourse) {
-//     const { original } = sourse.dataset;
-//     const currentImage = galleryItems.find((sourse))
-// }
 
 
 
