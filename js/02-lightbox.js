@@ -49,34 +49,6 @@ function createMarkup(arr){
 
 list.insertAdjacentHTML('afterbegin', createMarkup(galleryItems))
 
-list.addEventListener('click', handlerClickGallery)
+const lightbox = new SimpleLightbox('.gallery a', { captionsData: `alt`, captionDelay: 250 });
 
-function handlerClickGallery(evt){
-    evt.preventDefault();
-    if(evt.target.classList.contains('gallery__image')){
-        console.log('gallery__image', evt.target)
-    }
-
-    // const imageSrc = evt.target.dataset.source;
-
-    var lightbox = new SimpleLightbox('.gallery a', { captionsData: `alt`, captionDelay: 250 });
-
-    // const instance = lightbox.create(
-    //         `<img src="${imageSrc}" alt = '${evt.target.description}'
-    //         width="1300" height="900">
-    //          `, {
-    //          onShow: () => {
-    //             window.addEventListener('keydown', handlerEscapeModal);},
-                
-    //          onClose: () => {
-    //             window.removeEventListener('keydown', handlerEscapeModal);
-    //          } 
-    //     })
-    //     instance.show();
-
-    //     function handlerEscapeModal(evt) {
-    //         if (evt.code === 'Escape') {
-    //             instance.close();
-    //         }
-    //     }
-}
+    
